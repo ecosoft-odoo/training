@@ -22,6 +22,17 @@ odoo.define('my_library.tour', function (require) {
             extra_trigger: '.o_form_editable',
             content: _t('Set the book title'),
             position: 'right',
+            run: function (actions) {
+                actions.text('Test Book');
+            },
+        }, {
+            trigger: '.o_int_colorpicker',
+            extra_trigger: '.o_form_editable',
+            content: _t('Set the book title'),
+            position: 'right',
+            run: function () {
+                this.$anchor.find('.o_color_3').click();
+            }
         }, {
             trigger: '.o_form_button_save',
             content: _t('Save this book record'),

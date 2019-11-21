@@ -14,7 +14,4 @@
         'views/library_book.xml',
         'views/templates.xml'
     ],
-    'qweb': [
-        'static/src/xml/qweb_template.xml'
-    ]
 }

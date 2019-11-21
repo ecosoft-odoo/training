@@ -3,10 +3,6 @@ odoo.define('my_field_widget', function (require) {
 
 var AbstractField = require('web.AbstractField');
 var fieldRegistry = require('web.field_registry');
-var core = require('web.core');
-var mobile = require('web_mobile.rpc');
-
-var qweb = core.qweb;
 
 var colorField = AbstractField.extend({
     className: 'o_int_colorpicker',
@@ -19,27 +15,18 @@ var colorField = AbstractField.extend({
         this.totalColors = 10;
         this._super.apply(this, arguments);
     },
-    willStart: function () {
-        var self = this;
-        this.colorGroupData = {};
-        var colorDataDef = this._rpc({
-            model: this.model,
-            method: 'read_group',
-            domain: [],
-            fields: ['color'],
-            groupBy: ['color'],
-        }).then(function (result) {
-            _.each(result, function (r) {
-                self.colorGroupData[r.color] = r.color_count;
-            });
-        });
-        return $.when(this._super.apply(this, arguments), colorDataDef);
-    },
     _renderEdit: function () {
         this.$el.empty();
-        var pills = qweb.render('FieldColorPills', {widget: this});
-        this.$el.append(pills);
-        this.$el.find('[data-toggle="tooltip"]').tooltip();
+        for (var i = 0; i < this.totalColors; i++ ) {
+            var className = "o_color_pill o_color_" + i;
+            if (this.value === i ) {
+                className += ' active';
+            }
+            this.$el.append($('<span>', {
+                'class': className,
+                'data-val': i,
+            }));
+        }
     },
     _renderReadonly: function () {
         var className = "o_color_pill active readonly o_color_" + this.value;
@@ -50,9 +37,6 @@ var colorField = AbstractField.extend({
     clickPill: function (ev) {
         var $target = $(ev.currentTarget);
         var data = $target.data();
-        if (mobile.methods.showToast) {
-            mobile.methods.showToast({ 'message': 'Color changed' });
-        }
         this._setValue(data.val.toString());
     }
 

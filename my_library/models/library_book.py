@@ -9,4 +9,15 @@ class LibraryBook(models.Model):
     name = fields.Char('Title', required=True)
     date_release = fields.Date('Release Date')
     author_ids = fields.Many2many('res.partner', string='Authors')
+    state = fields.Selection(
+        [('draft', 'Not Available'),
+         ('available', 'Available'),
+         ('lost', 'Lost')],
+        'State', default="draft")
     color = fields.Integer()
+
+    def make_available(self):
+        self.write({'state': 'available'})
+
+    def make_lost(self):
+        self.write({'state': 'lost'})
