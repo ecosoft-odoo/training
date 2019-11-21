@@ -14,7 +14,12 @@ class LibraryBookRent(models.Model):
                              'State', default='ongoing', required=True,
                              track_visibility='always')
     rent_date = fields.Date(default=fields.Date.today, track_visibility='onchange')
-    return_date = fields.Date(track_visibility='onchange')
+    return_date = fields.Date(track_visibility='always')
+
+    device_id = fields.Many2one('iot.device', string='IoT Device', domain="[('type', '=', 'camera')]")
+    ip = fields.Char(related="device_id.iot_id.ip")
+    identifier = fields.Char(related='device_id.identifier')
+    picture = fields.Binary()
 
     @api.model
     def create(self, vals):
