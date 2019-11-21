@@ -19,13 +19,8 @@
                 <group>
                     <group>
                         <field name="name"/>
+                        <field name="description"/>
                     </group>
-                    <group>
-                        <field name="parent_id"/>
-                    </group>
-                </group>
-                <group>
-                    <field name="child_ids"/>
                 </group>
             </form>
         </field>
@@ -38,6 +33,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="description"/>
             </tree>
         </field>
     </record>
