@@ -17,8 +17,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="book_return" string="Return the Book" states="ongoing" type="object"/>
-                    <field name="state" widget="statusbar"/>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                 </header>
                 <sheet>
                     <group>
@@ -44,7 +43,7 @@
             <tree>
                 <field name="book_id"/>
                 <field name="borrower_id"/>
-                <field name="state"/>
+                <field name="stage_id"/>
             </tree>
         </field>
     </record>
