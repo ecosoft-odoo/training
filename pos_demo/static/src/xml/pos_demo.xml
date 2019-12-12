@@ -20,4 +20,13 @@
         </t>
     </t>
 
+    <t t-extend="PosTicket">
+        <t t-jquery=".receipt-change" t-operation="after">
+            <t t-if="saved_amount">
+                <br/>
+                <div class="pos-center-align"> <t t-esc="widget.format_currency(saved_amount)"/> you saved in this order </div>
+            </t>
+        </t>
+    </t>
+
 </templates>

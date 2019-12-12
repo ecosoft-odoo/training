@@ -8,6 +8,19 @@ odoo.define('pos_demo.custom', function (require) {
     var pos_model = require('point_of_sale.models');
     pos_model.load_fields("product.product", "standard_price");
 
+    screens.ReceiptScreenWidget.include({
+        get_receipt_render_env: function () {
+            var receipt_env = this._super();
+            var order = this.pos.get_order();
+            var saved = 0;
+            _.each(order.orderlines.models, function (line) {
+                saved += ((line.product.list_price - line.get_base_price()) * line.quantity);
+            });
+            receipt_env['saved_amount'] = saved;
+            return receipt_env;
+        }
+    });
+
     screens.OrderWidget.include({
         set_value: function (val) {
             this._super(val);
@@ -18,7 +31,7 @@ odoo.define('pos_demo.custom', function (require) {
                 if (line_price < orderline.quantity * standard_price) {
                     this.gui.show_popup('alert', {
                         title: "Warning",
-                        body: "Product price is set below product actual cost",
+                        body: "Product price is set below product's actual cost",
                     });
                 }
             }
