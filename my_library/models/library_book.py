@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
+
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from odoo.addons import decimal_precision as dp
@@ -43,6 +45,42 @@ class LibraryBook(models.Model):
         domain=[],
     )
     category_id = fields.Many2one('library.book.category')
+    age_days = fields.Float(
+        string='Days Since Release',
+        compute='_compute_age', inverse='_inverse_age', search='_search_age',
+        store=False,
+        compute_sudo=False,
+    )
+
+    @api.depends('date_release')
+    def _compute_age(self):
+        today = fields.Date.today()
+        for book in self.filtered('date_release'):
+            delta = today - book.date_release
+            book.age_days = delta.days
+
+    # This reverse method of _compute_age. Used to make age_days field editable
+    # It is optional if you don't want to make compute field editable then you can remove this
+    def _inverse_age(self):
+        today = fields.Date.today()
+        for book in self.filtered('date_release'):
+            d = today - timedelta(days=book.age_days)
+            book.date_release = d
+
+    # This used to enable search on copute fields
+    # It is optional if you don't want to make enable search then you can remove this
+    def _search_age(self, operator, value):
+        today = fields.Date.today()
+        value_days = timedelta(days=value)
+        value_date = today - value_days
+        # convert the operator:
+        # book with age > value have a date < value_date
+        operator_map = {
+            '>': '<', '>=': '<=',
+            '<': '>', '<=': '>=',
+        }
+        new_op = operator_map.get(operator, operator)
+        return [('date_release', new_op, value_date)]
 
     def name_get(self):
         """ This method used to customize display name of the record """

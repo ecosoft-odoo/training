@@ -34,6 +34,7 @@
                         <field name="publisher_id"/>
                         <field name="date_release"/>
                         <field name="date_updated"/>
+                        <field name="age_days"/>
                         <field name="cover" widget="image" class="oe_avatar"/>
                         <field name="reader_rating"/>
                     </group>
