@@ -3,6 +3,9 @@ odoo.define('my_field_widget', function (require) {
 
 var AbstractField = require('web.AbstractField');
 var fieldRegistry = require('web.field_registry');
+var core = require('web.core');
+
+var qweb = core.qweb;
 
 var colorField = AbstractField.extend({
     className: 'o_int_colorpicker',
@@ -17,16 +20,8 @@ var colorField = AbstractField.extend({
     },
     _renderEdit: function () {
         this.$el.empty();
-        for (var i = 0; i < this.totalColors; i++ ) {
-            var className = "o_color_pill o_color_" + i;
-            if (this.value === i ) {
-                className += ' active';
-            }
-            this.$el.append($('<span>', {
-                'class': className,
-                'data-val': i,
-            }));
-        }
+        var pills = qweb.render('FieldColorPills', {widget: this});
+        this.$el.append(pills);
     },
     _renderReadonly: function () {
         var className = "o_color_pill active readonly o_color_" + this.value;
