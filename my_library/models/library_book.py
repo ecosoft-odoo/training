@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 from odoo.addons import decimal_precision as dp
 
 
@@ -50,6 +51,14 @@ class LibraryBook(models.Model):
             rec_name = "%s (%s)" % (record.name, record.date_release)
             result.append((record.id, rec_name))
         return result
+
+    _sql_constraints = [('name_uniq', 'UNIQUE (name)', 'Book title must be unique.')]
+
+    @api.constrains('date_release')
+    def _check_release_date(self):
+        for record in self:
+            if record.date_release and record.date_release > fields.Date.today():
+                raise models.ValidationError('Release date must be in the past')
 
 
 class ResPartner(models.Model):
