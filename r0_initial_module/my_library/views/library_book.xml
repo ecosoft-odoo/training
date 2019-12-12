@@ -17,30 +17,26 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <header>
+                    <button name="make_available" string="Make Available" type="object" />
+                    <button name="make_borrowed" string="Make Borrowed" type="object" />
+                    <button name="make_lost" string="Make Lost" type="object" />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="author_ids" widget="many2many_tags"/>
-                        <field name="state"/>
-                        <field name="pages"/>
-                        <field name="notes"/>
-                        <field name="cost_price"/>
-                        <field name="retail_price"/>
-                        <field name="currency_id"/>
-                        <field name="category_id"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="category_id"/>
+                            <field name="cost_price"/>
+                        </group>
+                        <group>
+                            <field name="date_release"/>
+                            <field name="active"/>
+                            <field name="author_ids" widget="many2many_tags"/>
+                        </group>
                     </group>
-                    <group>
-                        <field name="short_name"/>
-                        <field name="publisher_id"/>
-                        <field name="date_release"/>
-                        <field name="date_updated"/>
-                        <field name="cover" widget="image" class="oe_avatar"/>
-                        <field name="reader_rating"/>
-                    </group>
-                </group>
-                <group>
-                    <field name="description"/>
-                </group>
+                </sheet>
             </form>
         </field>
     </record>
