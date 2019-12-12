@@ -26,7 +26,7 @@ QUnit.module('Color Picker Tests', {
     }
     }, function () {
 
-        QUnit.test('int_color field test cases', function (assert) {
+        QUnit.only('int_color field test cases', function (assert) {
         assert.expect(2);
 
         var form = testUtils.createView({
@@ -43,6 +43,7 @@ QUnit.module('Color Picker Tests', {
             viewOptions: {
                 mode: 'edit',
             },
+            debug:1
         });
 
         assert.strictEqual(form.$('.o_int_colorpicker .o_color_pill').length, 10,
@@ -53,7 +54,7 @@ QUnit.module('Color Picker Tests', {
         assert.strictEqual(form.$('.o_int_colorpicker .o_color_5').hasClass('active'), true,
             "click on pill should make pill active");
 
-        form.destroy();
+        // form.destroy();
     });
 });
 
