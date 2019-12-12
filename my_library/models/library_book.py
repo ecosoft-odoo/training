@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields
+from odoo.addons import decimal_precision as dp
 
 
 class LibraryBook(models.Model):
@@ -30,6 +31,7 @@ class LibraryBook(models.Model):
         digits=(14, 4),  # Optional precision (total, decimals),
     )
     author_ids = fields.Many2many('res.partner', string='Authors')
+    cost_price = fields.Float('Book Cost', digits=dp.get_precision('Book Price'))
 
     def name_get(self):
         """ This method used to customize display name of the record """
