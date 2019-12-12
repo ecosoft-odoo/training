@@ -1,40 +1,36 @@
 # -*- coding: utf-8 -*-
+import logging
 from odoo.exceptions import UserError
 from odoo import models, fields, api
 
+_logger = logging.getLogger(__name__)
 
 class LibraryBook(models.Model):
     _name = 'library.book'
     _description = 'Library Book'
 
     name = fields.Char('Title', required=True)
-    isbn = fields.Char('ISBN')
     date_release = fields.Date('Release Date')
+    cost_price = fields.Float('Book Cost')
+    category_id = fields.Many2one('library.book.category')
     author_ids = fields.Many2many('res.partner', string='Authors')
-    old_edition = fields.Many2one('library.book', string='Old Edition')
 
-    @api.multi
-    def name_get(self):
-        result = []
-        for book in self:
-            authors = book.author_ids.mapped('name')
-            name = '%s (%s)' % (book.name, ', '.join(authors))
-            result.append((book.id, name))
-        return result
+    def grouped_data(self):
+        data = self._get_average_cost()
+        _logger.info("Groupped Data %s" % data)
 
     @api.model
-    def _name_search(self, name='', args=None, operator='ilike',
-                     limit=100, name_get_uid=None):
-        print("===", args)
-        args = [] if args is None else args.copy()
-        if not(name == '' and operator == 'ilike'):
-            args += ['|', '|',
-                ('name', operator, name),
-                ('isbn', operator, name),
-                ('author_ids.name', operator, name)
-            ]
-            books_ids = self.search(args).ids
-            return self.browse(books_ids).name_get()
-        return super(LibraryBook, self)._name_search(
-            name=name, args=args, operator=operator,
-            limit=limit, name_get_uid=name_get_uid)
+    def _get_average_cost(self):
+        grouped_result = self.read_group(
+            [('cost_price', "!=", False)], # Domain
+            ['category_id', 'cost_price:avg'], # Fields to access
+            ['category_id'] # group_by
+            )
+        return grouped_result
+
+
+class BookCategory(models.Model):
+    _name = 'library.book.category'
+
+    name = fields.Char('Category')
+    description = fields.Text('Description')

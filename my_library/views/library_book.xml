@@ -17,15 +17,18 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="grouped_data" string="Groupped Data" type="object"/>
+                </header>
                 <group>
                     <group>
                         <field name="name"/>
                         <field name="author_ids" widget="many2many_tags"/>
-                        <field name="old_edition"/>
+                        <field name="cost_price" />
                     </group>
                     <group>
                         <field name="date_release"/>
-                        <field name="isbn"/>
+                        <field name="category_id"/>
                     </group>
                 </group>
             </form>
