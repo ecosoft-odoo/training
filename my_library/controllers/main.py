@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 from odoo.http import request
+from odoo.addons.http_routing.models.ir_http import slug
+from odoo.addons.website.models.ir_http import sitemap_qs2dom
 
 
 class Main(http.Controller):
@@ -11,7 +13,15 @@ class Main(http.Controller):
                 'books': request.env['library.book'].search([]),
             })
 
-    @http.route('/books/<model("library.book"):book>', type='http', auth="user", website=True)
+    def sitemap_books(env, rule, qs):
+        Books = env['library.book']
+        dom = sitemap_qs2dom(qs, '/books', Books._rec_name)
+        for f in Books.search(dom):
+            loc = '/books/%s' % slug(f)
+            if not qs or qs.lower() in loc:
+                yield {'loc': loc}
+
+    @http.route('/books/<model("library.book"):book>', type='http', auth="user", website=True, sitemap=sitemap_books)
     def library_book_detail(self, book):
         return request.render(
             'my_library.book_detail', {
