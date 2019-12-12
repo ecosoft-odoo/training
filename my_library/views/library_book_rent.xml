@@ -19,6 +19,7 @@
                 <header>
                     <button name="book_return" string="Return the Book" states="ongoing" type="object"/>
                     <button name="book_return_reminder" string="Send reminder" states="ongoing" type="object"/>
+                    <button name="book_return_reminder_qweb" string="Send reminder (QWeb)" states="ongoing" type="object"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

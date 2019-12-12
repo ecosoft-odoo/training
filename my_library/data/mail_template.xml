@@ -21,4 +21,24 @@
             ]]>
         </field>
     </record>
+
+    <template id="book_return_reminder_qweb">
+        <p>Dear <span t-field="object.borrower_id.name"/>,</p>
+        <p>You had rented the
+            <b>
+                <span t-field="object.book_id.name"/>
+            </b> book on <span t-field="object.rent_date"/>
+            <br/>
+                The due date of book is
+                <b style="color:red;">
+                    <span t-field="object.return_date"/>
+                </b>
+            </p>
+            <br/>
+
+            <p>Best regards,
+            <br/>
+            Librarian
+        </p>
+    </template>
 </odoo>

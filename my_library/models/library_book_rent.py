@@ -34,3 +34,6 @@ class LibraryBookRent(models.Model):
     def book_return_reminder(self):
         template_id = self.env.ref('my_library.book_return_reminder')
         self.message_post_with_template(template_id.id)
+
+    def book_return_reminder_qweb(self):
+        self.message_post_with_view('my_library.book_return_reminder_qweb')
