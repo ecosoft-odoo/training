@@ -11,6 +11,7 @@ class LibraryBook(models.Model):
     name = fields.Char('Title', required=True)
     date_release = fields.Date('Release Date')
     author_ids = fields.Many2many('res.partner', string='Authors')
+    category_id = fields.Many2one('library.book.category', string='Category')
     state = fields.Selection([
         ('draft', 'Unavailable'),
         ('available', 'Available'),
@@ -46,10 +47,32 @@ class LibraryBook(models.Model):
     def make_lost(self):
         self.change_state('lost')
 
+    def create_categories(self):
+        categ1 = {
+            'name': 'Child category 1',
+            'description': 'Description for child 1'
+        }
+        categ2 = {
+            'name': 'Child category 2',
+            'description': 'Description for child 2'
+        }
+        parent_category_val = {
+            'name': 'Parent category',
+            'email': 'Description for parent category',
+            'child_ids': [
+                (0, 0, categ1),
+                (0, 0, categ2),
+            ]
+        }
+        # Total 3 records (1 parent and 2 child) will be craeted in library.book.category model
+        record = self.env['library.book.category'].create(parent_category_val)
+        return True
+
     @api.model
     def get_all_library_members(self):
         library_member_model = self.env['library.member']  # This is an empty recordset of model library.member
         return library_member_model.search([])
+
 
 
 class LibraryMember(models.Model):

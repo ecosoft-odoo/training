@@ -21,6 +21,7 @@
                     <button name="make_available" string="Make Available" type="object"/>
                     <button name="make_borrowed"  string="Make Borrowed" type="object"/>
                     <button name="make_lost"  string="Make Lost" type="object"/>
+                    <button name="create_categories" string="Create Categories" type="object"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <group>
@@ -29,6 +30,7 @@
                         <field name="author_ids" widget="many2many_tags"/>
                     </group>
                     <group>
+                        <field name="category_id"/>
                         <field name="date_release"/>
                     </group>
                 </group>
