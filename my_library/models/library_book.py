@@ -118,6 +118,16 @@ class LibraryBook(models.Model):
     def get_author_names(self, all_books):
         return all_books.mapped('author_ids.name')
 
+    def sort_books(self):
+        all_books = self.search([])
+        books_sorted = self.sort_books_by_date(all_books)
+        logger.info('Books before sorting: %s', all_books)
+        logger.info('Books after sorting: %s', books_sorted)
+
+    @api.model
+    def sort_books_by_date(self, all_books):
+        return all_books.sorted(key='date_release')
+
 
 class LibraryMember(models.Model):
     _name = 'library.member'

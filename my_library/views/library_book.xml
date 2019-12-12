@@ -26,6 +26,7 @@
                     <button name="find_book" string="Find Book" type="object"/>
                     <button name="filter_books" string="Filter Book " type="object"/>
                     <button name="mapped_books" string="Mapped authors " type="object"/>
+                    <button name="sort_books" string="Sort Books " type="object"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <group>
