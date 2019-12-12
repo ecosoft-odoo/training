@@ -16,6 +16,7 @@ class Main(http.Controller):
         return request.render(
             'my_library.book_detail', {
                 'book': book,
+                'main_object': book
             })
 
     @http.route('/books/submit_issues', type='http', auth="user", website=True)
