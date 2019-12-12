@@ -11,4 +11,7 @@
     'data': [
         'views/pos_assets.xml'
     ],
+    'qweb': [
+        'static/src/xml/pos_demo.xml'
+     ]
 }
