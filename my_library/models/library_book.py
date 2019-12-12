@@ -41,6 +41,7 @@ class LibraryBook(models.Model):
         context={},
         domain=[],
     )
+    category_id = fields.Many2one('library.book.category')
 
     def name_get(self):
         """ This method used to customize display name of the record """
