@@ -17,6 +17,9 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button type="object" name="do_archive" string="Toggle Archive"/>
+                </header>
                 <group>
                     <group>
                         <field name="name"/>
@@ -28,6 +31,7 @@
                         <field name="retail_price"/>
                         <field name="currency_id"/>
                         <field name="category_id"/>
+                        <field name="active" readonly="1"/>
                     </group>
                     <group>
                         <field name="short_name"/>
