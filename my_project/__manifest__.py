@@ -6,7 +6,7 @@
     'website': "http://www.example.com",
     'category': 'Project',
     'version': '12.0.1',
-    'depends': ['project'],
+    'depends': ['project', 'web_cohort'],
     'data': [
         'views/my_tasks.xml',
     ],
