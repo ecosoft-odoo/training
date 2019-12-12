@@ -35,12 +35,25 @@
         </field>
     </record>
 
+    <record id="library_book_rent_view_form_minimal" model="ir.ui.view">
+        <field name="name">Library Rent Form</field>
+        <field name="model">library.book.rent</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="book_id" domain="[('state', '=', 'available')]"/>
+                    <field name="borrower_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
     <!-- Kanban View -->
     <record id="library_book_rent_view_kanban" model="ir.ui.view">
         <field name="name">Rent Kanban</field>
         <field name="model">library.book.rent</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="stage_id">
+            <kanban default_group_by="stage_id" on_create="quick_create" quick_create_view="my_library.library_book_rent_view_form_minimal">
                 <field name="stage_id" />
                 <templates>
                     <t t-name="kanban-box">
