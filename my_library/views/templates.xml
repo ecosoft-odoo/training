@@ -72,4 +72,41 @@
     </t>
 </template>
 
+<template id="books_issue_form" name="Book Issues Form">
+    <t t-call="website.layout">
+        <div class="container mt32">
+            <t t-if="submitted">
+                <h3 class="alert alert-success mt16 mb16">
+                    <i class="fa fa-thumbs-up"/>
+                    Book submitted successfully
+                </h3>
+                <h1> Report the another book issue </h1>
+            </t>
+            <t t-else="">
+                <h1> Report the book issue </h1>
+            </t>
+            <div class="row mt16">
+                <div class="col-6">
+                    <form method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="form-group">
+                            <label>Select Book</label>
+                            <select class="form-control" name="book_id">
+                                <t t-foreach="books" t-as="book">
+                                    <option t-att-value="book.id"><t t-esc="book.name"/></option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Issue Description</label>
+                            <textarea name="issue_description" class="form-control" placeholder="e.g. pages are missing"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
 </odoo>
