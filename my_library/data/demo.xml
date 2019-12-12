@@ -21,4 +21,5 @@
                             ref('author_hb')])]" />
         <field name="publisher_id" ref="res_partner_packt" />
     </record>
+
 </odoo>
