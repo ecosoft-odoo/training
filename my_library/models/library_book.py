@@ -12,8 +12,9 @@ class LibraryBook(models.Model):
     is_public = fields.Boolean(groups='my_library.group_library_librarian')
     private_notes = fields.Text(groups='my_library.group_library_librarian')
     report_missing = fields.Text(
-        string="Book is missing",
+        string="Bokk is missing",
         groups='my_library.group_library_librarian')
+    category_id = fields.Many2one('library.book.category')
 
     def report_missing_book(self):
         self.ensure_one()
