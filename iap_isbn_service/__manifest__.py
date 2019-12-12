@@ -10,5 +10,6 @@
         'security/ir.model.access.csv',
         'views/book_info_views.xml',
         'data/books_data.xml',
+        'views/res_config_settings.xml'
     ]
 }
