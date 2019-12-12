@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, tagged
 
 
+@tagged('-at_install', 'post_install')
 class TestBookState(TransactionCase):
 
     def setUp(self, *args, **kwargs):
