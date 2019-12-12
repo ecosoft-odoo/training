@@ -4,6 +4,7 @@ odoo.define('my_field_widget', function (require) {
 var AbstractField = require('web.AbstractField');
 var fieldRegistry = require('web.field_registry');
 var core = require('web.core');
+var mobile = require('web_mobile.rpc');
 
 var qweb = core.qweb;
 
@@ -49,6 +50,9 @@ var colorField = AbstractField.extend({
     clickPill: function (ev) {
         var $target = $(ev.currentTarget);
         var data = $target.data();
+        if (mobile.methods.showToast) {
+            mobile.methods.showToast({ 'message': 'Color changed' });
+        }
         this._setValue(data.val.toString());
     }
 
