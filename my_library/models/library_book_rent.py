@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 class LibraryBookRent(models.Model):
     _name = 'library.book.rent'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     book_id = fields.Many2one('library.book', 'Book', required=True)
     borrower_id = fields.Many2one('res.partner', 'Borrower', required=True)
@@ -19,6 +19,8 @@ class LibraryBookRent(models.Model):
         book_rec.make_borrowed()
         res = super(LibraryBookRent, self).create(vals)
         res.message_subscribe(partner_ids=[res.borrower_id.id])
+        if res.return_date:
+            res.activity_schedule('mail.mail_activity_data_call', date_deadline=res.return_date)
         return res
 
     def book_return(self):
