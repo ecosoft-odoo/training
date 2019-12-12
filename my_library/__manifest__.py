@@ -16,6 +16,7 @@
         'views/library_book_categ.xml',
         'views/library_book_rent.xml',
         'views/library_book_rent_wizard.xml',
+        'views/library_book_return_wizard.xml',
     ],
     # This demo data files will be loaded if db initialize with demo data (commented becaues file is not added in this example)
     # 'demo': [
