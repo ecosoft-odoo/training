@@ -17,23 +17,23 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
-                <header groups="my_library.group_library_user">
-                    <button name="report_missing_book"
-                        string="Report Missing Book"
-                        type="object"/>
+                <header>
+                    <button name="make_available" string="Make Available" type="object" />
+                    <button name="make_borrowed" string="Make Borrowed" type="object" />
+                    <button name="make_lost" string="Make Lost" type="object" />
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="name"/>
-                            <field name="author_ids" widget="many2many_tags"/>
-                            <field name="report_missing"/>
+                            <field name="category_id"/>
+                            <field name="cost_price"/>
                         </group>
                         <group>
-                            <field name="category_id"/>
                             <field name="date_release"/>
-                            <field name="is_public" />
-                            <field name="private_notes" />
+                            <field name="active"/>
+                            <field name="author_ids" widget="many2many_tags"/>
                         </group>
                     </group>
                 </sheet>
