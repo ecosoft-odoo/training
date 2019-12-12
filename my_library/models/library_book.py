@@ -44,7 +44,7 @@ class LibraryBook(models.Model):
         context={},
         domain=[],
     )
-    publisher_city = fields.Char('Publisher City', related='publisher_id.city', readonly=True) 
+    publisher_city = fields.Char('Publisher City', related='publisher_id.city', readonly=True)
     category_id = fields.Many2one('library.book.category')
     age_days = fields.Float(
         string='Days Since Release',
@@ -52,6 +52,7 @@ class LibraryBook(models.Model):
         store=False,
         compute_sudo=False,
     )
+    ref_doc_id = fields.Reference(selection='_referencable_models', string='Reference Document')
 
     @api.depends('date_release')
     def _compute_age(self):
@@ -82,6 +83,11 @@ class LibraryBook(models.Model):
         }
         new_op = operator_map.get(operator, operator)
         return [('date_release', new_op, value_date)]
+
+    @api.model
+    def _referencable_models(self):
+        models = self.env['ir.model'].search([('field_id.name', '=', 'message_ids')])
+        return [(x.model, x.name) for x in models]
 
     def name_get(self):
         """ This method used to customize display name of the record """

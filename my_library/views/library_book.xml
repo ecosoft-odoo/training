@@ -38,6 +38,7 @@
                         <field name="age_days"/>
                         <field name="cover" widget="image" class="oe_avatar"/>
                         <field name="reader_rating"/>
+                        <field name="ref_doc_id"/>
                     </group>
                 </group>
                 <group>
