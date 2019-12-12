@@ -6,45 +6,13 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button type="object" name="open_commercial_entity" string="Open commercial partner" class="btn-primary" />
-                </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
-                    </div>
-                    <div class="oe_left oe_title">
-                        <label for="name" />
-                        <h1>
-                            <field name="name" />
-                        </h1>
-                        <field name="parent_id" attrs="{
-                            'invisible': [('is_company', '=', True)],
-                            'required': [('is_company', '=', False)]
-                        }" />
-                    </div>
                     <group>
-                        <field name="is_company"/>
-                        <field name="category_id" widget="many2many_tags" />
+                        <field name="name" />
                         <field name="email"/>
-                        <field name="mobile"/>
                     </group>
-                    <field name="child_ids">
-                        <tree>
-                            <field name="name" />
-                            <field name="email" />
-                            <field name="phone" />
-                        </tree>
-                        <form>
-                            <group>
-                                <field name="name" />
-                                <field name="function" />
-                            </group>
-                        </form>
-                    </field>
                 </sheet>
+                <div class="o_attachment_preview" options="{'types': ['image', 'pdf'], 'order': 'desc'}" />
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="activity_ids" widget="mail_activity"/>
