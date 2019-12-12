@@ -27,6 +27,10 @@
                         <group>
                             <field name="book_id" domain="[('state', '=', 'available')]"/>
                             <field name="borrower_id"/>
+                            <field name="ip" invisible="1"/>
+                            <field name="identifier" invisible="1"/>
+                            <field name="device_id" required="1"/>
+                            <field name="picture" widget="iot_picture" options="{'ip_field': 'ip', 'identifier': 'identifier'}"/>
                         </group>
                         <group>
                             <field name="rent_date"/>
