@@ -11,5 +11,13 @@
             <i class='fa fa-shopping-cart' /> Last orders
         </div>
     </t>
+    <t t-extend="Product">
+        <t t-jquery=".price-tag" t-operation="after">
+            <span t-if="product.standard_price" class="sale_margin">
+                <t t-set="margin" t-value="product.list_price - product.standard_price"/>
+                <t t-esc="widget.format_currency(margin)"/>
+            </span>
+        </t>
+    </t>
 
 </templates>

@@ -5,6 +5,9 @@ odoo.define('pos_demo.custom', function (require) {
     var rpc = require('web.rpc');
     var screens = require('point_of_sale.screens');
 
+    var pos_model = require('point_of_sale.models');
+    pos_model.load_fields("product.product", "standard_price");
+
     var discount_button = screens.ActionButtonWidget.extend({
         template: 'BtnDiscount',
         button_click: function () {
