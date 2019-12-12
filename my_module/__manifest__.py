@@ -6,7 +6,7 @@
     'website': "http://www.example.com",
     'category': 'Uncategorized',
     'version': '12.0.1',
-    'depends': ['base'],
+    'depends': ['base', 'mail'],
     'data': [
         'views/my_contacts.xml',
     ],
