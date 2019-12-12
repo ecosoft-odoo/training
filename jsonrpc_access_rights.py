@@ -30,19 +30,11 @@ response = requests.post(json_endpoint, data=payload, headers=headers)
 user_id = response.json()['result']
 
 if user_id:
-    # search for the books ids
-    search_domain = ['|', ['name', 'ilike', 'odoo'], ['name', 'ilike', 'sql']]
     payload = get_json_payload("object", "execute_kw",
         db_name, user_id, password,
-        'library.book', 'search', [search_domain], {'limit': 5})
+        'library.book', 'check_access_rights', ['create'])
     res = requests.post(json_endpoint, data=payload, headers=headers).json()
-    print('Search Result:', res)  # ids will be in result keys
+    print("Has create access:", res['result'])
 
-    # read data for books ids
-    payload = get_json_payload("object", "execute_kw",
-        db_name, user_id, password,
-        'library.book', 'read', [res['result'], ['name', 'date_release']])
-    res = requests.post(json_endpoint, data=payload, headers=headers).json()
-    print('Books data:', res)
 else:
     print("Failed: wrong credentials")
