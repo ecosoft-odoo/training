@@ -24,6 +24,8 @@
                     </group>
                     <group>
                         <field name="date_release"/>
+                        <field name="is_public" />
+                        <field name="private_notes" />
                     </group>
                 </group>
             </form>
