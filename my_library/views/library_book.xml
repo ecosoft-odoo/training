@@ -22,6 +22,7 @@
                     <button name="make_borrowed"  string="Make Borrowed" type="object"/>
                     <button name="make_lost"  string="Make Lost" type="object"/>
                     <button name="create_categories" string="Create Categories" type="object"/>
+                    <button name="change_update_date" string="Update Date" type="object"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <group>
@@ -32,6 +33,7 @@
                     <group>
                         <field name="category_id"/>
                         <field name="date_release"/>
+                        <field name="date_updated"/>
                     </group>
                 </group>
             </form>
