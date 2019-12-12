@@ -11,9 +11,10 @@ class LibraryBookRent(models.Model):
     book_id = fields.Many2one('library.book', 'Book', required=True)
     borrower_id = fields.Many2one('res.partner', 'Borrower', required=True)
     state = fields.Selection([('ongoing', 'Ongoing'), ('returned', 'Returned')],
-                             'State', default='ongoing', required=True)
-    rent_date = fields.Date(default=fields.Date.today)
-    return_date = fields.Date()
+                             'State', default='ongoing', required=True,
+                             track_visibility='always')
+    rent_date = fields.Date(default=fields.Date.today, track_visibility='onchange')
+    return_date = fields.Date(track_visibility='onchange')
 
     @api.model
     def create(self, vals):
