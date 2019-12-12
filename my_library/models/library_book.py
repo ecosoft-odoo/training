@@ -19,6 +19,7 @@ class LibraryBook(models.Model):
 
 class LibraryBookIssues(models.Model):
     _name = 'book.issue'
+    _inherit = ['utm.mixin']
 
     book_id = fields.Many2one('library.book', required=True)
     submitted_by = fields.Many2one('res.users')

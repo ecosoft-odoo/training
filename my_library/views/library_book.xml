@@ -38,6 +38,7 @@
                                 <field name="create_date"/>
                                 <field name="submitted_by"/>
                                 <field name="issue_description"/>
+                                <field name="campaign_id"/>
                             </tree>
                         </field>
                     </group>

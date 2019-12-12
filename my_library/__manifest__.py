@@ -7,7 +7,7 @@
     'website': "http://www.example.com",
     'category': 'Uncategorized',
     'version': '12.0.1',
-    'depends': ['base', 'website'],
+    'depends': ['base', 'website', 'utm'],
     # This data files will be loaded at the installation (commented becaues file is not added in this example)
     'data': [
         'security/groups.xml',
