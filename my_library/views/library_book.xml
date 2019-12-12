@@ -32,6 +32,7 @@
                     <group>
                         <field name="short_name"/>
                         <field name="publisher_id"/>
+                        <field name="publisher_city"/>
                         <field name="date_release"/>
                         <field name="date_updated"/>
                         <field name="age_days"/>
