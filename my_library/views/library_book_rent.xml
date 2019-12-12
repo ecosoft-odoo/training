@@ -5,7 +5,7 @@
         <field name="name">Book on rent</field>
         <field name="res_model">library.book.rent</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <menuitem name="Book on rent" id="library_book_rent_menu" parent="library_base_menu" action="library_book_rent_action"/>
@@ -32,6 +32,37 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="library_book_rent_view_kanban" model="ir.ui.view">
+        <field name="name">Rent Kanban</field>
+        <field name="model">library.book.rent</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id">
+                <field name="stage_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="oe_kanban_card">
+                                    <div>
+                                        <i class="fa fa-user"/>
+                                        <b>
+                                            <field name="borrower_id" />
+                                        </b>
+                                    </div>
+                                    <div class="text-muted">
+                                        <i class="fa fa-book"/>
+                                        <field name="book_id" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
