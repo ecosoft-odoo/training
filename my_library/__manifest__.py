@@ -8,7 +8,6 @@
     'category': 'Uncategorized',
     'version': '12.0.1',
     'depends': ['base'],
-    # This data files will be loaded at the installation (commented becaues file is not added in this example)
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
@@ -20,6 +19,7 @@
         'views/library_book_statistics.xml',
         'views/res_config_settings_views.xml',
     ],
+    'post_init_hook': 'add_book_hook',
     # This demo data files will be loaded if db initialize with demo data (commented becaues file is not added in this example)
     # 'demo': [
     #     'demo.xml'
