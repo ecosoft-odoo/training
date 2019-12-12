@@ -18,8 +18,8 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="book_rent" string="Rent this book" type="object" class="btn-primary"/>
-                    <button name="return_all_books" string="Return all book" type="object" class="btn-primary"/>
+                    <button name="book_rent" string="Rent this book" type="object" class="btn-primary" groups="my_library.group_self_borrow"/>
+                    <button name="return_all_books" string="Return all book" type="object" class="btn-primary" groups="my_library.group_self_borrow"/>
                     <button name="make_available" string="Make Available" type="object" />
                     <button name="make_borrowed" string="Make Borrowed" type="object" />
                     <button name="make_lost" string="Make Lost" type="object" />
