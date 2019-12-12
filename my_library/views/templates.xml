@@ -5,6 +5,7 @@
         <xpath expr="." position="inside">
             <script src="/my_library/static/src/js/field_widget.js" type="text/javascript" />
             <link href="/my_library/static/src/scss/field_widget.scss" rel="stylesheet" type="text/scss" />
+            <script type="text/javascript" src="/my_library/static/src/js/my_library_tour.js" />
         </xpath>
     </template>
 
