@@ -58,9 +58,16 @@ class LibraryRentStage(models.Model):
          ('lost', 'Lost')],
         'State', default="available")
 
+
 class LibraryRentTags(models.Model):
     _name = 'library.rent.tag'
 
     name = fields.Char()
     color = fields.Integer()
+
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    rent_ids = fields.One2many('library.book.rent', 'borrower_id')
 
