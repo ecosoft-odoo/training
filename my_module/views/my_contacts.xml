@@ -12,7 +12,7 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
                         </button>
                     </div>
                     <div class="oe_left oe_title">
@@ -20,8 +20,13 @@
                         <h1>
                             <field name="name" />
                         </h1>
+                        <field name="parent_id" attrs="{
+                            'invisible': [('is_company', '=', True)],
+                            'required': [('is_company', '=', False)]
+                        }" />
                     </div>
                     <group>
+                        <field name="is_company"/>
                         <field name="category_id" widget="many2many_tags" />
                         <field name="email"/>
                         <field name="mobile"/>
