@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <act_window id="action_all_customers"
-        name="All customers"
-        res_model="res.partner"
-        view_mode="tree,form"
-        domain="[('customer', '=', True)]"
-        context="{'default_customer': True}"
-        limit="20"/>
-
-    <record id="tree_all_customers" model="ir.ui.view">
+    <record id="search_all_customers" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <tree decoration-bf="customer" decoration-danger="supplier" decoration-warning="customer and supplier">
+            <search>
                 <field name="name" />
-                <field name="customer" invisible="1" />
-                <field name="supplier" invisible="1" />
-            </tree>
+                <field name="category_id" filter_domain="[('category_id', 'child_of', self)]" />
+                <field name="bank_ids" widget="many2one" />
+                <filter name="suppliers" string="Suppliers" domain="[('supplier', '=', True)]" />
+                <group expand="0" string="Group By">
+                    <filter string="Country" name="country" context="{'group_by':'country_id'}"/>
+                </group>
+            </search>
         </field>
     </record>
 
-    <record id="action_all_customers_tree" model="ir.actions.act_window.view">
-        <field name="act_window_id" ref="action_all_customers" />
-        <field name="view_id" ref="tree_all_customers" />
-        <field name="view_mode">tree</field>
-        <field name="sequence">5</field>
+    <record id="action_all_customers" model="ir.actions.act_window">
+        <field name="name">All customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="domain">[('customer', '=', True)]</field>
+        <field name="search_view_id" ref="search_all_customers" />
     </record>
 
     <menuitem id="menu_custom_top_level" name="My App menu" web_icon="my_module,static/description/icon.png"/>
