@@ -31,6 +31,19 @@
                         <field name="email"/>
                         <field name="mobile"/>
                     </group>
+                    <field name="child_ids">
+                        <tree>
+                            <field name="name" />
+                            <field name="email" />
+                            <field name="phone" />
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="name" />
+                                <field name="function" />
+                            </group>
+                        </form>
+                    </field>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
