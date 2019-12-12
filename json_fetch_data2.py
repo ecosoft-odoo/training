@@ -11,7 +11,9 @@ password = 'admin'
 json_endpoint = "%s/jsonrpc" % server_url
 headers = {"Content-Type": "application/json"}
 
-def get_json_payload(service, method, *args):
+
+def get_json_payload(service, method, *args, **kwargs):
+    kwargs = kwargs or {}
     return json.dumps({
         "jsonrpc": "2.0",
         "method": 'call',
@@ -28,6 +30,12 @@ response = requests.post(json_endpoint, data=payload, headers=headers)
 user_id = response.json()['result']
 
 if user_id:
-    print("Success: User id is", user_id)
+    # search for the books ids
+    search_domain = ['|', ['name', 'ilike', 'odoo'], ['name', 'ilike', 'sql']]
+    payload = get_json_payload("object", "execute_kw",
+        db_name, user_id, password,
+        'library.book', 'search_read', [search_domain, ['name', 'date_release']], {'limit': 5})
+    res = requests.post(json_endpoint, data=payload, headers=headers).json()
+    print('Books data:', res)
 else:
     print("Failed: wrong credentials")
