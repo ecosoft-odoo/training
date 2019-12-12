@@ -30,6 +30,7 @@
                     </group>
                     <group>
                         <field name="short_name"/>
+                        <field name="publisher_id"/>
                         <field name="date_release"/>
                         <field name="date_updated"/>
                         <field name="cover" widget="image" class="oe_avatar"/>
