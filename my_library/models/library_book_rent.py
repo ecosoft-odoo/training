@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import re
+from odoo.tools import email_split, email_escape_char
 from odoo import models, fields, api
 
 
@@ -37,3 +39,16 @@ class LibraryBookRent(models.Model):
 
     def book_return_reminder_qweb(self):
         self.message_post_with_view('my_library.book_return_reminder_qweb')
+
+    @api.model
+    def message_new(self, msg_dict, custom_values=None):
+        self = self.with_context(default_user_id=False)
+        if custom_values is None:
+            custom_values = {}
+        regex = re.compile("^\[(.*)\]")
+        match = regex.match(msg_dict.get('subject')).group(1)
+        book_id = self.env['library.book'].search([('name', '=', match), ('state', '=', 'available')], limit=1)
+        custom_values['book_id'] = book_id.id
+        email_from = email_escape_char(email_split(msg_dict.get('from'))[0])
+        custom_values['borrower_id'] = self._search_on_partner(email_from)
+        return super(LibraryBookRent, self).message_new(msg_dict, custom_values)

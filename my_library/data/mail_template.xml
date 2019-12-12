@@ -41,4 +41,11 @@
             Librarian
         </p>
     </template>
+
+    <record id="mail_alias_rent" model="mail.alias">
+        <field name="alias_name">rent</field>
+        <field name="alias_model_id" ref="model_library_book_rent"/>
+        <field name="alias_user_id" ref="base.user_admin"/>
+        <field name="alias_contact">partners</field>
+    </record>
 </odoo>
