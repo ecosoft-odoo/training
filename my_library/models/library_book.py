@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import UserError
+from odoo.tools.translate import _
 
 
 class LibraryBook(models.Model):
@@ -32,7 +34,8 @@ class LibraryBook(models.Model):
             if book.is_allowed_transition(book.state, new_state):
                 book.state = new_state
             else:
-                continue
+                message = _('Moving from %s to %s is not allowd') % (book.state, new_state)
+                raise UserError(message)
 
     def make_available(self):
         self.change_state('available')
