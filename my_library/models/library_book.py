@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import logging
 from odoo import models, fields, _
 from odoo.exceptions import UserError
+
+
+logger = logging.getLogger(__name__)
 
 
 class LibraryBook(models.Model):
@@ -42,3 +46,18 @@ class LibraryBook(models.Model):
             'book_id': self.id,
             'borrower_id': self.env.user.partner_id.id,
         })
+
+    def average_book_occupation(self):
+        sql_query = """
+            SELECT
+                lb.name,
+                avg((EXTRACT(epoch from age(return_date, rent_date)) / 86400))::int
+            FROM
+                library_book_rent AS lbr
+            JOIN
+                library_book as lb ON lb.id = lbr.book_id
+            WHERE lbr.state = 'returned'
+            GROUP BY lb.name;"""
+        self.env.cr.execute(sql_query)
+        result = self.env.cr.fetchall()
+        logger.info("Average book occupation: %s", result)
