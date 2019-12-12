@@ -14,6 +14,7 @@ class LibraryBook(models.Model):
     image = fields.Binary(attachment=True)
     html_description = fields.Html()
     book_issue_ids = fields.One2many('book.issue', 'book_id')
+    restrict_country_ids = fields.Many2many('res.country')
 
 
 class LibraryBookIssues(models.Model):
