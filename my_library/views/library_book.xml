@@ -17,27 +17,14 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button name="make_available" string="Make Available" type="object"/>
-                    <button name="make_borrowed"  string="Make Borrowed" type="object"/>
-                    <button name="make_lost"  string="Make Lost" type="object"/>
-                    <button name="create_categories" string="Create Categories" type="object"/>
-                    <button name="change_update_date" string="Update Date" type="object"/>
-                    <button name="find_book" string="Find Book" type="object"/>
-                    <button name="filter_books" string="Filter Book " type="object"/>
-                    <button name="mapped_books" string="Mapped authors " type="object"/>
-                    <button name="sort_books" string="Sort Books " type="object"/>
-                    <field name="state" widget="statusbar"/>
-                </header>
                 <group>
                     <group>
                         <field name="name"/>
                         <field name="author_ids" widget="many2many_tags"/>
                     </group>
                     <group>
-                        <field name="category_id"/>
                         <field name="date_release"/>
-                        <field name="date_updated"/>
+                        <field name="manager_remarks"/>
                     </group>
                 </group>
             </form>
