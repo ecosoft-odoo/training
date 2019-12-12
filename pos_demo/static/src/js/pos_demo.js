@@ -8,6 +8,23 @@ odoo.define('pos_demo.custom', function (require) {
     var pos_model = require('point_of_sale.models');
     pos_model.load_fields("product.product", "standard_price");
 
+    screens.OrderWidget.include({
+        set_value: function (val) {
+            this._super(val);
+            var orderline = this.pos.get_order().get_selected_orderline();
+            var standard_price = orderline.product.standard_price;
+            if (orderline && standard_price) {
+                var line_price = orderline.get_base_price();
+                if (line_price < orderline.quantity * standard_price) {
+                    this.gui.show_popup('alert', {
+                        title: "Warning",
+                        body: "Product price is set below product actual cost",
+                    });
+                }
+            }
+        }
+    });
+
     var discount_button = screens.ActionButtonWidget.extend({
         template: 'BtnDiscount',
         button_click: function () {
