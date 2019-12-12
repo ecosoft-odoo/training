@@ -17,17 +17,25 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <header>
+                    <button name="report_missing_book"
+                        string="Report Missing Book"
+                        type="object"/>
+                </header>
+                <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="author_ids" widget="many2many_tags"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="author_ids" widget="many2many_tags"/>
+                            <field name="report_missing"/>
+                        </group>
+                        <group>
+                            <field name="date_release"/>
+                            <field name="is_public" />
+                            <field name="private_notes" />
+                        </group>
                     </group>
-                    <group>
-                        <field name="date_release"/>
-                        <field name="is_public" />
-                        <field name="private_notes" />
-                    </group>
-                </group>
+                </sheet>
             </form>
         </field>
     </record>
