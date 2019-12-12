@@ -30,3 +30,7 @@ class LibraryBookRent(models.Model):
             'state': 'returned',
             'return_date': fields.Date.today()
         })
+
+    def book_return_reminder(self):
+        template_id = self.env.ref('my_library.book_return_reminder')
+        self.message_post_with_template(template_id.id)
