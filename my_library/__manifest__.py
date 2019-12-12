@@ -7,13 +7,12 @@
     'website': "http://www.example.com",
     'category': 'Uncategorized',
     'version': '12.0.1',
-    'depends': ['base', 'decimal_precision'],
+    'depends': ['base'],
     # This data files will be loaded at the installation (commented becaues file is not added in this example)
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/library_book.xml',
-        'views/library_book_categ.xml'
+        'views/library_book.xml'
     ],
     # This demo data files will be loaded if db initialize with demo data (commented becaues file is not added in this example)
     # 'demo': [
