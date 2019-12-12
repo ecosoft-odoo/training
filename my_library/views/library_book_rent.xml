@@ -24,10 +24,13 @@
                         <group>
                             <field name="book_id" domain="[('state', '=', 'available')]"/>
                             <field name="borrower_id"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                options="{'color_field': 'color', 'no_create_edit': True}"/>
                         </group>
                         <group>
                             <field name="rent_date"/>
                             <field name="return_date"/>
+                            <field name="popularity" widget="priority"/>
                         </group>
                     </group>
                 </sheet>
@@ -55,11 +58,26 @@
         <field name="arch" type="xml">
             <kanban default_group_by="stage_id" on_create="quick_create" quick_create_view="my_library.library_book_rent_view_form_minimal">
                 <field name="stage_id" />
+                <field name="color" />
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown">
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                    </t>
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                </div>
+                            </div>
                             <div class="oe_kanban_content">
-                                <div class="oe_kanban_card">
+                                <div class="oe_kanban_card oe_kanban_global_click">
                                     <div>
                                         <i class="fa fa-user"/>
                                         <b>
@@ -69,6 +87,12 @@
                                     <div class="text-muted">
                                         <i class="fa fa-book"/>
                                         <field name="book_id" />
+                                    </div>
+                                    <span class="oe_kanban_list_many2many">
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </span>
+                                    <div>
+                                        <field name="popularity" widget="priority"/>
                                     </div>
                                 </div>
                             </div>

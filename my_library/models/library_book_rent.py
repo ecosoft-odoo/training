@@ -26,6 +26,9 @@ class LibraryBookRent(models.Model):
         default=_default_rent_stage,
         group_expand='_group_expand_stages'
     )
+    color = fields.Integer()
+    popularity = fields.Selection([('no', 'No Demand'), ('low', 'Low Demand'), ('medium', 'Average Demand'), ('high', 'High Demand'),])
+    tag_ids = fields.Many2many('library.rent.tag')
 
     @api.model
     def create(self, vals):
@@ -54,4 +57,10 @@ class LibraryRentStage(models.Model):
          ('borrowed', 'Borrowed'),
          ('lost', 'Lost')],
         'State', default="available")
+
+class LibraryRentTags(models.Model):
+    _name = 'library.rent.tag'
+
+    name = fields.Char()
+    color = fields.Integer()
 
